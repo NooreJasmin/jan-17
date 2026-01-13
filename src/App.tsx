@@ -7,11 +7,9 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import OrderSuccess from "./pages/OrderSuccess";
-
-import HomeFood from "./pages/HomeFood";
+import HomeFood from "./pages/HomemadeFood";
 import RestaurantFood from "./pages/RestaurantFood";
-import Navbar from "./components/Navbar";
-
+import Navbar from "./components/NavBar";
 const App: React.FC = () => {
   return (
     <Router>

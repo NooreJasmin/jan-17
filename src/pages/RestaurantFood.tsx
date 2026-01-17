@@ -133,8 +133,9 @@ const foodData: Food[] = [
   }
 ];
 
-const App: React.FC = () => {
+const RestaurantFood: React.FC = () => {
   const [foods, setFoods] = useState<Food[]>(foodData);
+  const [searchText, setSearchText] = useState("");
 
   const filterFood = (category: "all" | Food["category"]) => {
     if (category === "all") setFoods(foodData);
@@ -145,129 +146,44 @@ const App: React.FC = () => {
     alert(`${name} added to cart!`);
   };
 
+  const visibleFoods = foods.filter(food =>
+    `${food.name} ${food.category} ${food.calories} ${food.protein}`
+      .toLowerCase()
+      .includes(searchText.toLowerCase())
+  );
+
   return (
     <>
       <style>{`
-        * {
-          box-sizing: border-box;
-        }
-
-        html, body, #root {
-          margin: 0;
-          padding: 0;
-          width: 100%;
-          height: 100%;
-        }
-
-        body {
-          font-family: Arial, sans-serif;
-          background-color: #f5f5f5;
-        }
-
-        header {
-          width: 100%;
-          background-color: darkcyan;
-          color: white;
-          padding: 18px;
-          text-align: center;
-        }
-
-        .categories {
-          width: 100%;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 10px;
-          margin: 15px 0;
-        }
-
-        .categories button {
-          background-color: #023d48;
-          color: white;
-          border: none;
-          padding: 8px 18px;
-          border-radius: 20px;
-          cursor: pointer;
-        }
-
-        .categories button:hover {
-          background-color: darkcyan;
-        }
-
-        .container {
-          width: 100%;
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-          gap: 20px;
-          padding: 20px;
-        }
-
-        .card {
-          background: white;
-          border-radius: 12px;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-          padding: 15px;
-          text-align: center;
-          transition: transform 0.2s ease;
-        }
-
-        .card:hover {
-          transform: translateY(-5px);
-        }
-
-        .card img {
-          width: 100%;
-          height: 180px;
-          object-fit: cover;
-          border-radius: 10px;
-        }
-
-        .price {
-          color: green;
-          font-weight: bold;
-        }
-
-        .nutrition {
-          font-size: 14px;
-          margin: 8px 0;
-        }
-
-        .card button {
-          background-color: darkcyan;
-          color: white;
-          border: none;
-          padding: 10px;
-          border-radius: 6px;
-          cursor: pointer;
-          width: 100%;
-        }
-
-        .card button:hover {
-          background-color: rgb(116, 243, 243);
-        }
-
-        /* Mobile */
-        @media (max-width: 480px) {
-          header h1 {
-            font-size: 20px;
-          }
-
-          .card img {
-            height: 150px;
-          }
-        }
-
-        /* Tablet */
-        @media (min-width: 481px) and (max-width: 768px) {
-          .container {
-            padding: 15px;
-          }
-        }
+        * { box-sizing: border-box; }
+        html, body, #root { margin:0; padding:0; width:100%; height:100%; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        header { width: 100%; background-color: darkcyan; color: white; padding: 18px; text-align: center; }
+        .categories { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 15px 0; }
+        .categories button { background-color: #023d48; color: white; border: none; padding: 8px 18px; border-radius: 20px; cursor: pointer; }
+        .categories button:hover { background-color: darkcyan; }
+        .container { width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; padding: 20px; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 15px; text-align: center; transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
+        .price { color: green; font-weight: bold; }
+        .nutrition { font-size: 14px; margin: 8px 0; }
+        .card button { background-color: darkcyan; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; width: 100%; }
+        .card button:hover { background-color: rgb(116, 243, 243); }
+        .search-bar { width: 80%; max-width: 400px; padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; margin: 10px auto; display: block; }
       `}</style>
 
       <header>
         <h1>🍽️ Restaurant Food</h1>
       </header>
+
+      <input
+        className="search-bar"
+        type="text"
+        placeholder="Search food, category, calories..."
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+      />
 
       <div className="categories">
         <button onClick={() => filterFood("all")}>All</button>
@@ -277,7 +193,7 @@ const App: React.FC = () => {
       </div>
 
       <div className="container">
-        {foods.map(food => (
+        {visibleFoods.map(food => (
           <div className="card" key={food.name}>
             <img src={food.image} alt={food.name} />
             <h3>{food.name}</h3>
@@ -294,5 +210,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
-
+export default RestaurantFood;

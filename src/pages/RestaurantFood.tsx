@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // Food interface
 interface Food {
   name: string;
-  category: "Meals" | "snacks" | "desserts";
+  category: "meals" | "snacks" | "desserts";
   price: number;
   calories: number;
   protein: string;
@@ -13,7 +13,7 @@ interface Food {
 const foodData: Food[] = [
   {
     name: "Chicken Biryani",
-    category: "Meals",
+    category: "meals",
     price: 220,
     calories: 450,
     protein: "28g",
@@ -21,7 +21,7 @@ const foodData: Food[] = [
   },
   {
     name: "Veg Fried Rice",
-    category: "Meals",
+    category: "meals",
     price: 150,
     calories: 300,
     protein: "10g",
@@ -53,7 +53,7 @@ const foodData: Food[] = [
   },
   {
     name: "Veg Thali",
-    category: "Meals",
+    category: "meals",
     price: 200,
     calories: 500,
     protein: "18g",
@@ -61,7 +61,7 @@ const foodData: Food[] = [
   },
   {
     name: "Paneer Butter Masala",
-    category: "Meals",
+    category: "meals",
     price: 190,
     calories: 410,
     protein: "20g",
@@ -69,7 +69,7 @@ const foodData: Food[] = [
   },
   {
     name: "Mutton Biryani",
-    category: "Meals",
+    category: "meals",
     price: 280,
     calories: 520,
     protein: "32g",
@@ -188,7 +188,7 @@ const RestaurantFood: React.FC = () => {
       <div className="categories">
         <button onClick={() => filterFood("all")}>All</button>
         <button onClick={() => filterFood("snacks")}>Snacks</button>
-        <button onClick={() => filterFood("Meals")}>Meals</button>
+        <button onClick={() => filterFood("meals")}>Meals</button>
         <button onClick={() => filterFood("desserts")}>Desserts</button>
       </div>
 
